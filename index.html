@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPS-Game</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Mate+SC&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Viaoda+Libre&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: rgba(99, 213, 248, 0.884);
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            color: #fff;
+        }
+
+        header {
+            width: 100%;
+            box-sizing: border-box;
+            background: linear-gradient(65deg, rgb(64, 12, 250),rgb(144, 114, 235), rgb(43, 202, 241));
+        }
+
+        .container {
+            font-size: 20px;
+            font-weight: 300;
+            font-family: 'Viaoda Libre', cursive;
+            font-style: italic;
+            text-align: center;
+            /* overflow: auto; */
+            padding: 50px 0;
+        }
+
+        .rps {
+            font-style: italic;
+            font-family: 'Mate SC', serif;
+            animation-name: rps-game;
+            animation-duration: 2s;
+            animation-iteration-count: infinite;
+        }
+
+        @keyframes rps-game {
+            0% {
+                color: rgb(167, 138, 247);
+            }
+
+            50% {
+                color: rgb(241, 21, 113);
+            }
+
+            100% {
+                color: rgb(91, 235, 146);
+            }
+        }
+
+        .btn {
+            /* display: flex; */
+            align-items: center;
+            justify-content: center;
+            /* margin:10% 0; */
+        }
+
+        .reset-btn {
+            margin-right: 10px;
+            background-color: rgb(104, 233, 250);
+            border-radius: 20px;
+            width: 100px;
+            height: 30px;
+            border: 1px solid snow;
+        }
+      
+
+        .reset-btn:hover {
+            background-color: rgb(7, 11, 243);
+            color: #fff;
+        }
+
+    
+
+        .display{
+            margin: 10px auto;
+            width: 80%;
+            border-radius: 30px;
+            display: flex;
+            border: 1px solid white;
+            justify-content: space-around;
+            background-color: rgba(0, 0, 0, 0.3);
+            box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.7);
+        }
+
+        .cards {
+            margin: 20px auto;
+            padding: 0px;
+            width: 80%;
+            display: flex;
+            justify-content: space-around;
+            background-color: rgba(12, 15, 15, 0.3);
+            border: 1px solid #fff;
+            border-radius: 40px;
+            box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.7);
+        }
+
+        .cards-item {
+            cursor: pointer;
+            background-color: rgb(23, 16, 129);
+            box-shadow: 10 20px 20px rgba(0, 0, 0, 0.7);
+            padding: 10px 15px;
+            border: 1px solid white;
+            border-radius: 30px;
+        }
+
+        .cards-item:hover {
+            transform: scale(1.1);
+            background-color: rgb(10, 190, 235);
+        }
+
+        .score-card {
+            border: 1px solid white;
+            width: 80%;
+            margin: 20px auto;
+            border-radius: 30px;
+            /* background: linear-gradient(40deg,rgba(83, 192, 235, 0.815),rgba(86, 51, 240, 0.774)); */
+            background: linear-gradient(35deg, rgb(64, 12, 250), rgb(43, 202, 241));
+            box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.7);
+        }
+
+        .score-item {
+            /* justify-content: center; */
+            /* align-items: center; */
+            margin: 5px auto;
+            text-align: center;
+        }
+
+        .score-card>table {
+            border: 1px solid white;
+            border-radius: 30px;
+            padding: 5px 40px;
+            background: linear-gradient(45deg,rgba(0,0,0,0.4),rgba(59, 13, 226, 0.47));
+        }
+        #winning {
+            animation-name: rps-game;
+            animation-duration: 2s;
+            animation-iteration-count: infinite;
+
+        }
+
+        @media  (min-width:500px){
+
+            .container{
+                font-size: 40px;
+                font-weight: 400;
+            }
+            .cards,.display,.score-card{
+                width: 50%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            Let's Play<br><span class="rps">Rock</span>,<span class="rps">Paper</span>,<span class="rps">Scissors</span>
+            <div class="btn">
+                <!-- <button class="play-btn" onclick="play()"><a href="#card">Play</a></button> -->
+                <button class="reset-btn" onclick="reset()">Reset</button>
+            </div>
+        </div>
+    </header>
+    <section class="display"> 
+        <h3 class="display-item" id="userchoice" >Your choice</h3>
+        <h3 class="display-item" id="text" >Result</h3>
+        <h3 class="display-item" id="botchoice" >AI Choice</h3>
+
+    </section>
+    
+
+    <section class="score-card">
+        <h3 class="score-item">ScoreBoard</h3>
+        <table class="score-item">
+            <tr>
+                <th>Your Score </th>
+                <th>AI score</th>
+            </tr>
+            <tr>
+                <td id="userscore">0</td>
+                <td id="aiscore">0</td>
+            </tr>
+        </table>
+        <h3 class="score-item" id="winning">Tie Zone</h3>
+    </section>
+
+    <section class="cards" id="card">
+        <h3 class="cards-item" id="rock" onclick="rpsgame(this)">rock</h3>
+        <h3 class="cards-item" id="paper" onclick="rpsgame(this)">paper</h3>
+        <h3 class="cards-item" id="scissor" onclick="rpsgame(this)">scissor</h3>
+
+    </section>
+
+
+
+    <script>
+
+        var userscore = 0;
+        var aiscore = 0;
+
+
+        function gameResult(userchoice, botchoice) {
+            if (userchoice == "paper" && botchoice == "scissor") {
+                return 0;
+            }
+            else if (userchoice == "paper" && botchoice == "paper") {
+                return 0.5;
+            }
+            else if (userchoice == "paper" && botchoice == "rock") {
+                return 1;
+            }
+            else if (userchoice == "scissor" && botchoice == "rock") {
+                return 0;
+            }
+            else if (userchoice == "scissor" && botchoice == "scissor") {
+                return 0.5;
+            }
+            else if (userchoice == "scissor" && botchoice == "paper") {
+                return 1;
+            }
+            if (userchoice == "rock" && botchoice == "scissor") {
+                return 1;
+            }
+            else if (userchoice == "rock" && botchoice == "paper") {
+                return 0;
+            }
+            else if (userchoice == "rock" && botchoice == "rock") {
+                return 0.5;
+            }
+            else {
+                return 0;
+            }
+
+        }
+
+        function textDisplay(result) {
+            if (result == 1) {
+                return "you won";
+            }
+            else if (result == 0) {
+                return "You lost";
+            }
+            else {
+                return "Game tie";
+            }
+        }
+
+        function gamefrontend(userchoice, botchoice, text, userscore, aiscore,winning) {
+            document.getElementById("userchoice").innerText = userchoice;
+            document.getElementById("text").innerText = text;
+            document.getElementById("botchoice").innerText = botchoice;
+            document.getElementById('userscore').innerText = userscore;
+            document.getElementById('aiscore').innerText = aiscore;
+            document.getElementById("winning").innerText = winning; 
+
+
+        }
+
+        function textDisplay(result) {
+            if (result == 1) {
+                return "Won!!";
+            }
+            else if (result == 0) {
+                return "Lose!!";
+            }
+            else {
+                return "Tie!!";
+            }
+        }
+
+        function rpsgame(yourChoice) {
+            var userchoice, botchoice;
+            userchoice = yourChoice.id;
+            var arr = ['rock', 'paper', 'scissor']
+            botchoice = arr[Math.floor(Math.random() * arr.length)];
+            var result = gameResult(userchoice, botchoice);
+            var text = textDisplay(result);
+            if (result == 1) {
+                userscore += 1;
+            } else if (result == 0) {
+                aiscore += 1;
+            } else {
+                userscore += 1;
+                aiscore += 1;
+            }
+
+            var winning = 'Tie Zone!!';
+            if(userscore>aiscore){
+                winning = "Winning Zone!!";
+            }
+            else if(userchoice==aiscore){
+                winning = "Tie Zone!!";
+            }else{
+                winning = "Losing Zone!!";
+            }
+            gamefrontend(userchoice, botchoice, text, userscore, aiscore,winning);
+
+
+        }
+
+
+        function reset(){
+            document.getElementById("rock").innerText = "rock";
+            document.getElementById("paper").innerText = "paper";
+            document.getElementById("scissor").innerText = "scissor";
+            userscore = 0;
+            aiscore = 0;
+            document.getElementById('userscore').innerText = userscore;
+            document.getElementById('aiscore').innerText = aiscore;
+            document.getElementById("winning").innerText = "Tie Zone";
+            document.getElementById("userchoice").innerText = "Your choice";
+            document.getElementById("text").innerText = "Result";
+            document.getElementById("botchoice").innerText = "AI Choice";
+
+
+        }
+
+
+
+    </script>
+
+
+
+</body>
+
+</html>
